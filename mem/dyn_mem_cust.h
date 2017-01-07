@@ -3,16 +3,12 @@
  *
  */
 
-#ifndef DYN_MEM_H
-#define DYN_MEM_H
+#ifndef _DYN_MEM_CUST_H_
+#define _DYN_MEM_CUST_H_
 
 /*********************
  *      INCLUDES
  *********************/
-#include "misc_conf.h"
-
-#include <stdint.h>
-#include <stddef.h>
 
 /*********************
  *      DEFINES
@@ -22,20 +18,19 @@
  *      TYPEDEFS
  **********************/
 
+struct mem_cust_t {
+	uint32_t size;
+	struct mem_cust_t *next;
+	struct mem_cust_t *prev;
+	void *memptr;
+};
+
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void dm_init(void);
-void * dm_alloc(uint32_t size);
-void dm_free(void  * data);
-void * dm_realloc(void * data_p, uint32_t new_size);
-uint32_t dm_get_size(void * p);
 
 /**********************
  *      MACROS
  **********************/
 
-#define dm_assert(p) {if(p == NULL) {while(1);}}
-
-#endif
-
+#endif /* _DYN_MEM_CUST_H_ */

@@ -3,8 +3,8 @@
  * 
  */
 
-#ifndef DYN_MEM_H
-#define DYN_MEM_H
+#ifndef DYN_MEM_DEFR_H
+#define DYN_MEM_DEFR_H
 
 /*********************
  *      INCLUDES
@@ -56,12 +56,7 @@ typedef struct
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void dmd_init(void);
-void * dmd_alloc(uint32_t size);
-void dmd_free(void  * data);
-void * dmd_realloc(void * data_p, uint32_t new_size);
 void dmd_defrag(void);
-uint32_t dmd_get_size(void * p);
 void dmd_monitor(dmd_mon_t * mon_p);
 
 /**********************
@@ -72,7 +67,7 @@ void dmd_monitor(dmd_mon_t * mon_p);
 #define dp *
 
 
-#endif /*USE_DYN_MEM*/
+#endif /*USE_DYN_MEM_DEFR*/
 
 #endif
 
