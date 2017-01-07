@@ -89,10 +89,15 @@ void dm_free(void * data)
 	if (ptr == memlist) {
 		/* move ahead */
 		memlist = ptr->next;
-		memlist->prev = NULL;
+		if (memlist)
+			memlist->prev = NULL;
+		if (ptr == memcurr)
+			memcurr = memlist;
 	} else {
 		prev = ptr->prev;
 		prev->next = ptr->next;
+		if (ptr->next)
+			ptr->next->prev = prev;
 		if (ptr == memcurr)
 			memcurr = prev;
 	}
