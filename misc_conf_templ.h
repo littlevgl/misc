@@ -14,6 +14,14 @@
 /*----------------
  * Dynamic memory
  *----------------*/
+#define USE_DYN_MEM_CUST 0
+#if USE_DYN_MEM_CUST
+#include <stdlib.h>
+#define MEM_MALLOC	malloc
+#define MEM_FREE	free
+#define DM_AUTO_ZERO	1
+#endif
+
 #define USE_DYN_MEM     0
 #if USE_DYN_MEM != 0
 #define DM_MEM_SIZE    (4U * 1024U) /*Size memory used by mem_alloc (in bytes)*/
