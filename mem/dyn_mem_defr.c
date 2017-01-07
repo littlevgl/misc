@@ -36,6 +36,7 @@
 #include "misc_conf.h"
 #if USE_DYN_MEM_DEFR != 0
 
+#include "dyn_mem.h"
 #include "dyn_mem_defr.h"
 #include "../math/math_base.h"
 #include <string.h>
@@ -77,7 +78,7 @@ static dmd_ent_t * last_e;       /*The last entry*/
 /**
  * Initiaize the dyn_mem module (work memory and other variables)
  */
-void dmd_init(void)
+void dm_init(void)
 {
     dmd_ent_t * e = (dmd_ent_t *)&work_mem[DM_MEM_SIZE - sizeof(dmd_ent_t)];
     e->header.d_size = DM_MEM_SIZE - sizeof(dmd_ent_t);
@@ -95,7 +96,7 @@ void dmd_init(void)
  * @return pointer to the allocated memory 
  * !!!IMPORTANT!!! it is special pointer,  see the file header for more information
  */
-void * dmd_alloc(uint32_t size)
+void * dm_alloc(uint32_t size)
 {
     if(size == 0) {
         return &zero_mem;
@@ -117,7 +118,7 @@ void * dmd_alloc(uint32_t size)
  * @param data pointer to an allocated memory 
  * (without da() tag, see file header for more information)
  */
-void dmd_free(void * data)
+void dm_free(void * data)
 {    
     if(data == &zero_mem) return;
     if(data == NULL) return;
@@ -176,18 +177,18 @@ void dmd_free(void * data)
  * !!!IMPORTANT!!! it is special pointer,  see the file header for more information
 
  */
-void * dmd_realloc(void * data_p, uint32_t new_size)
+void * dm_realloc(void * data_p, uint32_t new_size)
 {
     uint8_t dp * new_p;
     
-    new_p = dmd_alloc(new_size);
+    new_p = dm_alloc(new_size);
     
     if(new_p != NULL && data_p != NULL) {
         /*Copy the old data to the new. Use the smaller size*/
-        uint32_t old_size = dmd_get_size(data_p);
+        uint32_t old_size = dm_get_size(data_p);
         if(old_size != 0) {
             memcpy(da(new_p), da(((uint8_t dp *)data_p)), min(new_size, old_size));
-            dmd_free(data_p);
+            dm_free(data_p);
         }
     }
     
@@ -232,7 +233,7 @@ void dmd_monitor(dmd_mon_t * mon_p)
  * @param data pointer to an allocated memory (without da() tag see file header for more information )
  * @return the size of data memory in bytes 
  */
-uint32_t dmd_get_size(void * data)
+uint32_t dm_get_size(void * data)
 {
     if(data == &zero_mem) return 0;
     

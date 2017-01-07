@@ -8,9 +8,10 @@
  *      INCLUDES
  *********************/
 #include "misc_conf.h"
-#if USE_DYN_MEM != 0
+#if USE_DYN_MEM_SIMPLE != 0
 
 #include "dyn_mem.h"
+#include "dyn_mem_simple.h"
 #include "../math/math_base.h"
 #include <string.h>
 

@@ -22,12 +22,12 @@
 #define DM_AUTO_ZERO	1
 #endif
 
-#define USE_DYN_MEM     0
-#if USE_DYN_MEM != 0
+#define USE_DYN_MEM_SIMPLE     0
+#if USE_DYN_MEM_SIMPLE != 0
 #define DM_MEM_SIZE    (4U * 1024U) /*Size memory used by mem_alloc (in bytes)*/
 #define DM_AUTO_ZERO   1             /*Automatically fill-zero the allocated memory*/
 #define DM_MEM_ATTR					 /*Complier prefix for big array declaration*/
-#endif  /*USE_DYN_MEM*/
+#endif  /*USE_DYN_MEM_SIMPLE*/
 
  /*----------------------------
   * Dynamic memory with Defrag
